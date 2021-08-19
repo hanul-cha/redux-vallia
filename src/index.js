@@ -1,24 +1,15 @@
+import { createStore } from "redux";
+
 const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
-let count = 0;
+const countModifier = (count = 0) => {
+  
+  return count;
+};
 
-number.innerText = count;
+const countStore = createStore(countModifier); //state를 저장하는 저장소가 될것임
 
-const updateText = () => {
-  number.innerText = count;
-}
 
-const hanleAdd = () => {
-  count = count + 1;
-  updateText();
-}
 
-const hanleMinus = () => {
-  count = count - 1;
-  updateText();
-}
-
-add.addEventListener('click', hanleAdd);
-minus.addEventListener('click', hanleMinus);
