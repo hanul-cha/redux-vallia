@@ -24,13 +24,19 @@ const deleteToDo = (id) => {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, { text: action.text, id: Date.now() }];
+      const newToDoObj = { text: action.text, id: Date.now() };
+      return [newToDoObj, ...state ];
     case DELETE_TODO:
-      return [];
+      return state.filter(toDo => toDo.id !== action.id)
     default:
       return state;
   }
 }
+/* 
+  수많은 리엑트에서 스프레드, filter를 사용하는 이유는 state를 직접적으로 수정하지않고
+  새로운 obj를 만들어 주기 위함이다. 리액트 자체에서도 경고를 하고 있고
+  비동기 적으로 작동하는 state이기 때문에 직접 수정하게 되면 여러 이슈가 발생할수 있다.
+*/
 
 const store = createStore(reducer);
 
@@ -41,7 +47,7 @@ const dispatchAddToDo = (text) => {
 }
 
 const dispatchDeleteToDo = (e) => {
-  const id = e.target.parentNode.id;
+  const id = parseInt(e.target.parentNode.id);
   store.dispatch(deleteToDo(id));
 }
 
