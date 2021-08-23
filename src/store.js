@@ -3,7 +3,7 @@ import { createStore } from "redux";
 const ADD = "ADD";
 const DELETE = "DELETE";
 
-const addToDo = text => {
+const addToDo = text => {  //보내줄 액션타입
     return{
         type: ADD,
         text

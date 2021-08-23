@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import ToDo from "../component/ToDo";
 import { actionCreators } from "../store";
 
 function Home({ toDos, addToDo }) {//toDos에 할당된것은 mapStateToProps에서 가져온 reducer의 state이다
@@ -13,7 +14,7 @@ function Home({ toDos, addToDo }) {//toDos에 할당된것은 mapStateToProps에
     function onSubmit(e) {
         e.preventDefault();
         console.log(text);
-        addToDo(text);
+        addToDo(text); //store.js에 dispatch해서 리턴된 값들을 state에 할당해주는 구문
         setText("");
     }
 
@@ -24,7 +25,11 @@ function Home({ toDos, addToDo }) {//toDos에 할당된것은 mapStateToProps에
                 <input type="text" value={text} onChange={onChange}/>
                 <button>Add</button>
             </form>
-            <ul>{ JSON.stringify(toDos) }</ul>
+            <ul>
+                { toDos.map(toDo => (
+                    <ToDo {...toDo} key={toDo.id} />
+                )) }
+            </ul>
         </>
     )
 }
